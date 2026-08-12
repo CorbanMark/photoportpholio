@@ -1,0 +1,121 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photography Portfolio</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="top-nav">
+        <div class="nav-links">
+            <a href="{% url 'latest_projects' %}">LATEST</a>
+            <a href="{% url 'fashion_projects' %}">FASHION</a>
+        </div>
+        <div class="logo-text"><a href="{% url 'home' %}" style="text-decoration:none; color:inherit;"></a></div>
+        <div class="nav-links">
+            <a href="{% url 'rates' %}" class="rate-card-link">JOIN+ [RATES]</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-section">
+        <!-- Red Background Blur Title -->
+            <h1 class="mega-title red-blur">
+                <span class="text-stretch">DAZED</span>
+            </h1>
+
+            <!-- Black Foreground Title -->
+             <div class="mega-title front-title">
+                <div class="marquee-track">
+                    <span>NANYOKIA'S PORTFOLIO &nbsp;&bull;&nbsp;&nbsp;</span>
+                    <span>NANYOKIA'S PORTFOLIO &nbsp;&bull;&nbsp;&nbsp;</span>
+                </div>
+            </div>
+        <div class="hero-image-container">
+            {% if featured and featured.cover_image %}
+                <img src="{{ featured.cover_image.url }}" alt="{{ featured.title }}" class="hero-img">
+            {% else %}
+                <div class="no-img-box">UPLOAD FEATURED IMAGE IN ADMIN PANEL</div>
+            {% endif %}
+        </div>
+    </header>
+
+    <!-- Project Grid -->
+    <main class="editorial-grid">
+        <!-- Photographer Intro Section -->
+    <section class="intro-block grid-item">
+        <div class="intro-card">
+            <div class="avatar-wrapper">
+                {% if profile and profile.profile_image %}
+                    <img src="{{ profile.profile_image.url }}" alt="{{ profile.name }}" class="avatar-circle">
+                {% else %}
+                    <div class="avatar-circle" style="background-color: #111; display: flex; align-items: center; justify-content: center; color: #fff; font-family: var(--font-header);">
+                        PHOTO
+                    </div>
+                {% endif %}
+            </div>
+            
+            <div class="intro-content">
+                <span class="intro-label">{{ profile.label|default:"// EDITOR & PHOTOGRAPHER" }}</span>
+                <h2 class="intro-name">I'M {{ profile.name|default:"YOUR NAME" }}</h2>
+                <p class="intro-bio">
+                    {{ profile.bio|default:"Log into /admin to add your bio and profile picture!" }}
+                </p>
+
+                <!-- Social Media Buttons -->
+                <div class="social-links">
+                    {% if profile.instagram_url %}
+                        <a href="{{ profile.instagram_url }}" target="_blank" rel="noopener" class="social-btn">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                            </svg>
+                            <span>INSTAGRAM</span>
+                        </a>
+                    {% endif %}
+
+                    {% if profile.twitter_x_url %}
+                        <a href="{{ profile.twitter_x_url }}" target="_blank" rel="noopener" class="social-btn">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                            </svg>
+                            <span>TWITTER / X</span>
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+        {% for project in projects %}
+            <article class="grid-item text-block">
+                <h2>{{ project.title }}</h2>
+                <p>{{ project.description|truncatewords:30 }}</p>
+                <a href="{% url 'project_detail' project.id %}" class="read-more">R E A D &nbsp; M O R E</a>
+            </article>
+
+            <article class="grid-item img-block">
+                {% if project.cover_image %}
+                    <img src="{{ project.cover_image.url }}" alt="{{ project.title }}">
+                {% else %}
+                    <div class="no-img-box">NO IMAGE</div>
+                {% endif %}
+
+                <!-- SVG CIRCLE -->
+                <svg class="red-scribble-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M 20,50 C 15,20 80,10 85,45 C 90,80 25,90 15,55 C 10,35 60,15 80,30" fill="none" />
+                </svg>
+            </article>
+        {% empty %}
+            <p style="grid-column: span 12; text-align: center;">No projects uploaded yet. Add them via /admin!</p>
+        {% endfor %}
+    </main>
+
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>

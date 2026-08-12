@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RATE CARD // PRICING</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <nav class="top-nav">
+        <div class="nav-links"><a href="{% url 'home' %}">← BACK TO HOME</a></div>
+        <div class="logo-text">RATES</div>
+        <div class="nav-links"><a href="{% url 'rates' %}">JOIN+</a></div>
+    </nav>
+
+    <div class="rates-container">
+        <h1 class="mega-title" style="margin-top:20px;">SERVICE RATES</h1>
+        
+        <div class="rates-grid">
+            {% for rate in rates %}
+                <div class="rate-card">
+                    <div class="rate-header">
+                        <h2>{{ rate.service_name }}</h2>
+                        <span class="price-tag">KSH.{{ rate.price }}</span>
+                    </div>
+                    <p class="rate-desc">{{ rate.description }}</p>
+                    <hr>
+                    <p class="rate-features">
+                        <ul class="rate-features-list">
+                            {% for feature in rate.features.splitlines %}
+                                <li>{{ feature }}</li>
+                            {% endfor %}
+                        </ul></p>
+                    <a href="mailto:your-email@domain.com" class="book-btn">BOOK SERVICE →</a>
+                </div>
+            {% empty %}
+                <div class="rate-card">
+                    <h2>EDITORIAL / COMMERCIAL SHOOT</h2>
+                    <span class="price-tag">$1,500 / DAY</span>
+                    <p class="rate-desc">Full-day commercial or editorial photography. Includes color grading and retouching.</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</body>
+</html>

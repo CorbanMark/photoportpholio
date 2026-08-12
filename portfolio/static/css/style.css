@@ -1,0 +1,531 @@
+:root {
+    --bg-color: #f4f4f4; /* Slightly off-white for a paper feel */
+    --text-main: #000000;
+    --accent-red: #e60000;
+    --font-header: 'Anton', sans-serif; /* Thick, impact-style font */
+    --font-body: 'Inter', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+}
+
+/* Navigation */
+.top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    border-bottom: 2px solid var(--text-main);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.top-nav a {
+    color: var(--text-main);
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+.logo-text {
+    font-family: var(--font-header);
+    font-size: 3rem;
+    letter-spacing: -2px;
+}
+
+/* Hero Section Container */
+.hero-section {
+    position: relative;
+    text-align: center;
+    padding-top: 20px;
+    width: 100%;
+    margin-bottom: 40px;
+    overflow: hidden; /* CRITICAL: Clips all parallax elements so nothing bleeds past this container */
+}
+
+/* Massive Editorial Title Styling */
+.mega-title {
+    width: 100vw;
+    overflow: hidden;
+    white-space: nowrap;
+    will-change: opacity, transform;
+}
+
+/* Moving Track that Holds the Text */
+.marquee-track {
+    display: inline-flex;
+    white-space: nowrap;
+    animation: marqueeLoop 18s linear infinite; /* Adjust '18s' to change speed */
+    will-change: transform;
+}
+
+/* Individual Text Spans */
+.marquee-track span {
+    font-family: var(--font-header);
+    font-size: 13vw; /* Large magazine height */
+    line-height: 0.8;
+    text-transform: uppercase;
+    letter-spacing: -3px;
+}
+
+/* Continuous Infinite Loop Keyframe */
+@keyframes marqueeLoop {
+    0% {
+        transform: translateX(0%);
+    }
+    100% {
+        transform: translateX(-50%); /* Shifts left by 1 exact repeated unit */
+    }
+}
+
+.text-stretch {
+    display: inline-block;
+    font-size: 7.2vw; /* Fits all 19 characters across the viewport width */
+    letter-spacing: -3px; /* Tightens gap between letters */
+    transform: scaleY(1.8); /* Stretches letter height back to 15vw scale */
+    transform-origin: center bottom;
+}
+
+/* Red Blurred Background Text (Layer 1 - Lowest) */
+.red-blur {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--accent-red);
+    filter: blur(4px);
+    opacity: 0.7;
+    z-index: 1;
+}
+
+/* Black Foreground Text (Layer 2 - Behind Image) */
+.front-title {
+    position: relative;
+    color: #000000 !important;
+    opacity: 1 !important;
+    z-index: 2;
+}
+
+/* Image Container (Layer 10 - Highest, sits over scrolling text) */
+.hero-image-container {
+    position: relative;
+    z-index: 10; /* Keeps photo cleanly above background marquee text */
+    margin-top: -30px; /* Slight artistic touch over marquee */
+    padding: 0 20px;
+    opacity: 1 !important;
+}
+
+.hero-img {
+    width: 100%;
+    max-width: 1200px;
+    height: auto;
+    border: 2px solid var(--text-main);
+    background-color: var(--bg-color); /* Solid backing so marquee text doesn't show through */
+    display: block;
+    margin: 0 auto;
+    transform: none !important; /* Locks photo position completely static */
+    transition: none !important;
+}
+
+/* Photographer Intro Card */
+.intro-block {
+    grid-column: span 12;
+    border: 2px solid var(--text-main);
+    background-color: #ffffff;
+    padding: 30px !important;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 15;
+}
+
+.intro-card {
+    display: flex;
+    align-items: flex-start; /* Align avatar to the top for a clean editorial layout */
+    gap: 35px;
+    width: 100%;
+}
+
+.avatar-wrapper {
+    flex-shrink: 0;
+}
+
+.avatar-circle {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%; /* Creates the circular photo */
+    object-fit: cover;
+    border: 3px solid var(--accent-red); /* High-contrast red ring */
+    box-shadow: 4px 4px 0px #000; /* Brutalist shadow */
+}
+
+.intro-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1; /* Forces the text block to expand and fill all remaining space */
+    width: 100%;
+}
+
+.intro-label {
+    font-family: var(--font-header);
+    color: var(--accent-red);
+    font-size: 1rem;
+    letter-spacing: 2px;
+}
+
+.intro-name {
+    font-family: var(--font-header);
+    font-size: 2.8rem;
+    line-height: 1;
+    margin: 5px 0 15px 0;
+    text-transform: uppercase;
+}
+
+.intro-bio {
+    font-size: 1.05rem;
+    color: #222222;
+    line-height: 1.65;
+    max-width: 100%; /* Removed 800px limit so text fills the right side */
+    margin-bottom: 20px;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .intro-card {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+/* Editorial Grid Layout */
+.editorial-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 20px;
+    padding: 40px;
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+.grid-item {
+    padding: 20px;
+}
+
+/* Positioning items on the grid like a magazine layout */
+.text-block {
+    grid-column: span 5;
+    border-top: 5px solid var(--text-main);
+}
+
+.text-block.hover-active .read-more {
+    letter-spacing: 2px; /* Expands letter spacing on hover */
+}
+
+.text-block h2 {
+    font-family: var(--font-header);
+    font-size: 3.5rem;
+    line-height: 1;
+    margin-bottom: 20px;
+    letter-spacing: -1px;
+    transition: color 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+}
+
+.text-block.hover-active h2 {
+    color: var(--accent-red);
+    transform: translateX(8px);
+}
+
+.text-block p {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 40px;
+}
+
+.read-more {
+    font-family: var(--font-header);
+    color: var(--accent-red);
+    text-decoration: none;
+    font-size: 1.5rem;
+    display: inline-block;
+    transition: transform 0.3s ease, letter-spacing 0.3s ease;
+}
+
+.read-more:hover {
+    transform: translateX(6px); /* Subtle forward nudge on hover */
+    color: #000000; /* Flashes black on hover */
+}
+
+.img-block {
+    grid-column: span 7;
+    position: relative;
+    overflow: visible ;
+}
+
+.img-block img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+    cursor: pointer;
+}
+
+.img-block.hover-active img {
+    transform: translateY(-4px);
+    box-shadow: 8px 8px 0px var(--accent-red);
+}
+
+/* The dark portfolio blocks */
+.project-highlight {
+    grid-column: span 12;
+    background-color: var(--text-main);
+    color: var(--bg-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px;
+    border: 1px solid #333;
+}
+
+.project-highlight h3 {
+    font-family: var(--font-header);
+    font-size: 4rem;
+    color: var(--bg-color);
+    text-transform: uppercase;
+}
+
+.project-highlight p {
+    max-width: 400px;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* Position the SVG relative to the photo card */
+.red-scribble-svg {
+    position: absolute;
+    bottom: -25px;
+    left: -25px;
+    width: 110px;
+    height: 110px;
+    pointer-events: none;
+    z-index: 20;
+    transform: rotate(-10deg);
+}
+
+/* Prepare path for stroke-dash animation */
+.red-scribble-svg path {
+    stroke: var(--accent-red) ;
+    stroke-width: 4px;
+    stroke-linecap: round;
+    stroke-dasharray: 400;
+    stroke-dashoffset: 400; /* Fully hidden at start */
+    transition: stroke-dashoffset 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Triggered when img-block enters viewport */
+.img-block.draw-active .red-scribble-svg path {
+    stroke-dashoffset: 0 ; /* Draws line in real time */
+}
+
+/* Rate Card Styling */
+.rates-container {
+    padding: 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.rates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.rate-card {
+    background-color: #000;
+    color: #fff;
+    padding: 30px;
+    border: 3px solid var(--accent-red);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.rate-header h2 {
+    font-family: var(--font-header);
+    font-size: 2.2rem;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.price-tag {
+    font-family: var(--font-header);
+    color: var(--accent-red);
+    font-size: 1.8rem;
+    display: block;
+    margin-bottom: 15px;
+}
+
+.rate-desc {
+    color: #ccc;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.book-btn {
+    display: inline-block;
+    margin-top: 25px;
+    background-color: var(--accent-red);
+    color: #fff;
+    text-decoration: none;
+    padding: 12px 20px;
+    font-family: var(--font-header);
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+.no-img-box {
+    width: 100%;
+    height: 400px;
+    background-color: #222;
+    color: var(--accent-red);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-header);
+    font-size: 1.5rem;
+    border: 2px dashed var(--accent-red);
+}
+
+/* Individual Project Showcase Page */
+.project-detail-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.project-header {
+    margin-bottom: 30px;
+    border-bottom: 3px solid var(--text-main);
+    padding-bottom: 20px;
+}
+
+.project-category {
+    font-family: var(--font-header);
+    color: var(--accent-red);
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+}
+
+.project-title {
+    font-family: var(--font-header);
+    font-size: clamp(3rem, 7vw, 6rem);
+    line-height: 0.9;
+    text-transform: uppercase;
+    letter-spacing: -2px;
+    margin: 10px 0;
+}
+
+.project-subtitle {
+    font-size: 1.2rem;
+    color: #555;
+    font-weight: 300;
+}
+
+.project-showcase {
+    width: 100%;
+    margin-bottom: 40px;
+    border: 2px solid var(--text-main);
+    background-color: #000;
+}
+
+.project-main-img {
+    width: 100%;
+    height: auto;
+    max-height: 85vh;
+    object-fit: contain;
+    display: block;
+}
+
+.project-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 40px;
+    border-top: 1px solid #ddd;
+    padding-top: 30px;
+}
+
+.meta-item {
+    margin-bottom: 20px;
+}
+
+.meta-item strong {
+    display: block;
+    font-family: var(--font-header);
+    color: var(--accent-red);
+    letter-spacing: 1px;
+}
+
+.info-description h3 {
+    font-family: var(--font-header);
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+.info-description p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #222;
+}
+
+@media (max-width: 768px) {
+    .project-info-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Social Links Styling */
+.social-links {
+    display: flex;
+    gap: 12px;
+    margin-top: 18px;
+    flex-wrap: wrap;
+}
+
+.social-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background-color: var(--text-main);
+    color: #ffffff;
+    text-decoration: none;
+    font-family: var(--font-header);
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    border: 2px solid var(--text-main);
+    transition: all 0.2s ease-in-out;
+}
+
+.social-btn svg {
+    flex-shrink: 0;
+}
+
+.social-btn:hover {
+    background-color: var(--accent-red);
+    border-color: var(--accent-red);
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 3px 3px 0px #000;
+}

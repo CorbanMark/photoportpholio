@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ category_name }} — Portfolio</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+        <a href="{% url 'home' %}">&larr; BACK TO HOME</a>
+        <div class="logo-text">{{ category_name }}</div>
+        <div>
+            <a href="{% url 'latest_projects' %}">LATEST</a>
+            <a href="{% url 'fashion_projects' %}">FASHION</a>
+        </div>
+    </nav>
+
+    <!-- Category Header & Editorial Grid -->
+    <div class="project-detail-container">
+        <header class="project-header">
+            <span class="project-category">// CATEGORY ARCHIVE</span>
+            <h1 class="project-title">{{ category_name }}</h1>
+            <p class="project-subtitle">
+                Showing {{ projects|length }} project{% if projects|length != 1 %}s{% endif %}
+            </p>
+        </header>
+
+        <!-- Dynamic Category Projects Grid -->
+        <main class="editorial-grid" style="padding: 0; margin-top: 30px;">
+            {% for project in projects %}
+                <!-- Project Description Block -->
+                <article class="grid-item text-block">
+                    <h2>{{ project.title }}</h2>
+                    <p>{{ project.description|truncatewords:30 }}</p>
+                    <a href="{% url 'project_detail' project.id %}" class="read-more">R E A D &nbsp; M O R E</a>
+                </article>
+
+                <!-- Project Image Block -->
+                <div class="grid-item img-block">
+                    {% if project.cover_image %}
+                        <a href="{% url 'project_detail' project.id %}">
+                            <img src="{{ project.cover_image.url }}" alt="{{ project.title }}">
+                        </a>
+                    {% else %}
+                        <div class="no-img-box">NO IMAGE AVAILABLE</div>
+                    {% endif %}
+                </div>
+            {% empty %}
+                <!-- Empty State Box -->
+                <div style="grid-column: span 12; padding: 60px 20px; text-align: center; border: 2px dashed var(--accent-red); margin-top: 20px;">
+                    <h3 style="font-family: var(--font-header); font-size: 2.5rem; color: var(--accent-red);">NO PROJECTS FOUND</h3>
+                    <p style="margin-top: 10px; font-size: 1.1rem;">There are currently no projects listed under {{ category_name }}.</p>
+                    <a href="{% url 'home' %}" class="book-btn" style="display: inline-block; margin-top: 20px;">BACK TO HOME &rarr;</a>
+                </div>
+            {% endfor %}
+        </main>
+    </div>
+
+    <!-- Main JavaScript -->
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>

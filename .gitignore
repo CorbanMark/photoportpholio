@@ -1,0 +1,16 @@
+# Virtual Environment
+env/
+venv/
+ENV/
+
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Local environment & SQLite
+db.sqlite3
+.env
+
+# Collected static files folder
+staticfiles/
