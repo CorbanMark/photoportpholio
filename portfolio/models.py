@@ -1,4 +1,6 @@
 from django.db import models
+from cloudinary_storage.storage import MediaCloudinaryStorage
+
 
 class Project(models.Model):
     CATEGORY_CHOICES = [
@@ -11,7 +13,7 @@ class Project(models.Model):
     subtitle = models.CharField(max_length=300, blank=True, null=True)
     description = models.TextField()
     category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, default='latest')
-    cover_image = models.ImageField(upload_to='projects/')
+    cover_image = models.ImageField(upload_to='projects/',storage=MediaCloudinaryStorage())
     is_featured = models.BooleanField(default=False, help_text="Check this to feature this photo on the homepage hero section")
     date_created = models.DateField(auto_now_add=True)
 
@@ -32,7 +34,7 @@ class PhotographerProfile(models.Model):
     name = models.CharField(max_length=100, default="YOUR NAME")
     label = models.CharField(max_length=100, default="// EDITOR & PHOTOGRAPHER")
     bio = models.TextField()
-    profile_image = models.ImageField(upload_to='profile/', blank=True, null=True)
+    profile_image = models.ImageField(upload_to='profile/', storage=MediaCloudinaryStorage(),blank=True, null=True)
     instagram_url = models.URLField(blank=True, null=True)
     twitter_x_url = models.URLField(blank=True, null=True)
 
