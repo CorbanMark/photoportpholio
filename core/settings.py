@@ -127,12 +127,19 @@ STATICFILES_DIRS = [
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
-
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'htds1kbf',
-    'API_KEY': '167153789543883',
-    'API_SECRET': '1L9vHah4dTzItM6cZ16_a150l5k',
+    'CLOUD_NAME': os.environ.get('htds1kbf'),
+    'API_KEY': os.environ.get('167153789543883'),
+    'API_SECRET': os.environ.get('1L9vHah4dTzItM6cZ16_a150l5k'),
+}
+
+STORAGES = {
+    "default": {
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
+    },
 }
 
 MEDIA_URL = '/media/'
