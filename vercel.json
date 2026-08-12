@@ -3,12 +3,14 @@
   "builds": [
     {
       "src": "photoportfolio/wsgi.py",
-      "use": "@vercel/python",
-      "config": { "maxLambdaSize": "15mb", "runtime": "python3.11" }
+      "use": "@vercel/python"
     },
     {
       "src": "build_files.sh",
-      "use": "@vercel/bash"
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "staticfiles_build"
+      }
     }
   ],
   "routes": [
@@ -17,7 +19,7 @@
       "dest": "/static/$1"
     },
     {
-      "src": "(.*)",
+      "src": "/(.*)",
       "dest": "photoportfolio/wsgi.py"
     }
   ]
