@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RATE CARD // PRICING</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
@@ -10,13 +11,13 @@
 <body>
 
     <nav class="top-nav">
-        <div class="nav-links"><a href="{% url 'home' %}">← BACK TO HOME</a></div>
+        <div class="nav-links"><a href="{% url 'home' %}">&larr; BACK TO HOME</a></div>
         <div class="logo-text">RATES</div>
         <div class="nav-links"><a href="{% url 'rates' %}">JOIN+</a></div>
     </nav>
 
     <div class="rates-container">
-        <h1 class="mega-title" style="margin-top:20px;">SERVICE RATES</h1>
+        <h1 class="mega-title rates-page-title">SERVICE RATES</h1>
         
         <div class="rates-grid">
             {% for rate in rates %}

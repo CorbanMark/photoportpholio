@@ -18,9 +18,9 @@
 
     <!-- Top Navigation -->
     <nav class="top-nav">
-        <a href="{% url 'home' %}">&larr; BACK TO HOME</a>
+        <div class="nav-links"><a href="{% url 'home' %}">&larr; BACK TO HOME</a></div>
         <div class="logo-text">{{ category_name }}</div>
-        <div>
+        <div class="nav-links">
             <a href="{% url 'latest_projects' %}">LATEST</a>
             <a href="{% url 'fashion_projects' %}">FASHION</a>
         </div>
