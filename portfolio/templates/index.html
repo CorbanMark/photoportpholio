@@ -101,9 +101,11 @@
 
             <article class="grid-item img-block">
                 {% if project.cover_image_display %}
-                    <img src="{{ project.cover_image_display }}" alt="{{ project.title }}">
+                    <div class="project-image-frame">
+                        <img src="{{ project.cover_image_display }}" alt="{{ project.title }}" class="project-grid-img">
+                    </div>
                 {% else %}
-                    <div class="no-img-box">NO IMAGE</div>
+                    <div class="no-img-box project-image-frame">NO IMAGE</div>
                 {% endif %}
 
                 <!-- SVG CIRCLE -->

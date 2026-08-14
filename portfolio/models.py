@@ -18,7 +18,10 @@ class Project(models.Model):
         blank=True,
         help_text='Optional. Upload on cloudinary.com, then paste the image URL here.',
     )
-    is_featured = models.BooleanField(default=False, help_text="Check this to feature this photo on the homepage hero section")
+    is_featured = models.BooleanField(
+        default=False,
+        help_text="Show this project in the homepage hero. Only one project can be featured at a time.",
+    )
     date_created = models.DateField(auto_now_add=True)
 
     @property
@@ -27,8 +30,12 @@ class Project(models.Model):
             return self.cover_image.url
         return self.cover_image_url
 
-    def __str__(self):
-        return self.title
+    def save(self, *args, **kwargs):
+        if self.is_featured:
+            Project.objects.filter(is_featured=True).exclude(pk=self.pk).update(is_featured=False)
+        super().save(*args, **kwargs)
+
+    def __str__(self):        return self.title
 
 
 class ServiceRate(models.Model):

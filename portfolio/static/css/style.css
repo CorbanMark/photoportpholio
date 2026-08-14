@@ -128,13 +128,15 @@ body {
 
 .hero-img {
     width: 100%;
-    max-width: 1200px;
-    height: auto;
+    max-width: 900px;
+    height: 420px;
+    max-height: 50vh;
+    object-fit: cover;
     border: 2px solid var(--text-main);
-    background-color: var(--bg-color); /* Solid backing so marquee text doesn't show through */
+    background-color: var(--bg-color);
     display: block;
     margin: 0 auto;
-    transform: none !important; /* Locks photo position completely static */
+    transform: none !important;
     transition: none !important;
 }
 
@@ -205,6 +207,19 @@ body {
         flex-direction: column;
         text-align: center;
     }
+
+    .hero-img {
+        height: 260px;
+    }
+
+    .project-image-frame,
+    .no-img-box {
+        height: 220px;
+    }
+
+    .project-main-img {
+        height: 320px;
+    }
 }
 
 /* Editorial Grid Layout */
@@ -269,19 +284,32 @@ body {
 .img-block {
     grid-column: span 7;
     position: relative;
-    overflow: visible ;
+    overflow: visible;
 }
 
-.img-block img {
+.project-image-link {
+    display: block;
+    text-decoration: none;
+}
+
+.project-image-frame {
     width: 100%;
-    height: auto;
+    height: 280px;
+    overflow: hidden;
+    border: 2px solid var(--text-main);
+    background-color: #111;
+}
+
+.project-grid-img {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
     display: block;
     transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
     cursor: pointer;
 }
 
-.img-block.hover-active img {
+.img-block.hover-active .project-grid-img {
     transform: translateY(-4px);
     box-shadow: 8px 8px 0px var(--accent-red);
 }
@@ -397,7 +425,7 @@ body {
 
 .no-img-box {
     width: 100%;
-    height: 400px;
+    height: 280px;
     background-color: #222;
     color: var(--accent-red);
     display: flex;
@@ -452,9 +480,9 @@ body {
 
 .project-main-img {
     width: 100%;
-    height: auto;
-    max-height: 85vh;
-    object-fit: contain;
+    height: 480px;
+    max-height: 60vh;
+    object-fit: cover;
     display: block;
 }
 
