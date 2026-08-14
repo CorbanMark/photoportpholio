@@ -333,18 +333,27 @@ a, button {
     }
 
     .editorial-grid {
-        padding: 18px 12px 28px;
-        gap: 14px;
-        grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+        padding: 12px 0 28px;
+        gap: 10px;
+        grid-template-columns: 1fr;
     }
 
     .grid-item {
-        padding: 8px 0;
+        padding: 0;
+        width: 100%;
     }
 
-    .text-block,
     .img-block {
-        grid-column: span 1;
+        order: -1;
+        grid-column: 1 / -1;
+        margin-bottom: 4px;
+    }
+
+    .text-block {
+        order: 2;
+        grid-column: 1 / -1;
+        border-top-width: 4px;
+        padding: 12px 14px 8px;
     }
 
     .intro-block {
@@ -383,23 +392,19 @@ a, button {
         justify-content: center;
     }
 
-    .text-block {
-        border-top-width: 4px;
-        padding-right: 6px;
-    }
-
     .text-block h2 {
-        font-size: clamp(2.4rem, 7vw, 4.2rem);
-        line-height: 0.9;
+        font-size: clamp(3rem, 11vw, 5rem);
+        line-height: 0.86;
         letter-spacing: -2px;
-        margin-bottom: 12px;
+        margin-bottom: 10px;
+        max-width: none;
     }
 
     .text-block p {
-        font-size: 0.82rem;
+        font-size: 0.84rem;
         line-height: 1.55;
         margin-bottom: 16px;
-        max-width: 26ch;
+        max-width: none;
     }
 
     .read-more {
@@ -409,7 +414,8 @@ a, button {
 
     .project-image-frame,
     .no-img-box {
-        height: clamp(220px, 45vw, 340px);
+        width: 100%;
+        height: clamp(280px, 58vw, 420px);
     }
 
     .no-img-box {
@@ -486,19 +492,17 @@ a, button {
     }
 
     .editorial-grid {
-        grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
-        padding-left: 10px;
-        padding-right: 10px;
+        padding-left: 0;
+        padding-right: 0;
     }
 
     .text-block h2 {
-        font-size: clamp(1.8rem, 8vw, 3rem);
-        letter-spacing: -1.5px;
+        font-size: clamp(2.5rem, 15vw, 4.3rem);
+        letter-spacing: -1.8px;
     }
 
     .text-block p {
-        max-width: 20ch;
-        font-size: 0.77rem;
+        font-size: 0.8rem;
     }
 
     .intro-name {
@@ -517,7 +521,7 @@ a, button {
 
     .project-image-frame,
     .no-img-box {
-        height: 200px;
+        height: 220px;
     }
 }
 
