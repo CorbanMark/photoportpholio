@@ -399,12 +399,6 @@ body {
         font-size: 1rem;
     }
 
-    .project-main-img {
-        height: auto;
-        max-height: 70vh;
-        object-fit: contain;
-    }
-
     .project-info-grid {
         grid-template-columns: 1fr;
         gap: 24px;
@@ -717,9 +711,9 @@ body {
 
 .project-main-img {
     width: 100%;
-    height: 480px;
-    max-height: 60vh;
-    object-fit: cover;
+    height: auto;
+    max-height: 85vh;
+    object-fit: contain;
     display: block;
 }
 
