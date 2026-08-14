@@ -12,11 +12,24 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     background-color: var(--bg-color);
     color: var(--text-main);
     font-family: var(--font-body);
-    overflow-x: hidden;
+    overflow-x: clip;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+a, button {
+    -webkit-tap-highlight-color: transparent;
 }
 
 /* Navigation */
@@ -26,7 +39,7 @@ body {
     justify-content: space-between;
     align-items: center;
     gap: 12px;
-    padding: 20px 40px;
+    padding: 20px clamp(16px, 4vw, 40px);
     border-bottom: 2px solid var(--text-main);
     font-size: 0.8rem;
     font-weight: 700;
@@ -38,19 +51,23 @@ body {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+    justify-content: center;
     gap: 8px;
+    min-width: 0;
 }
 
 .top-nav a {
     color: var(--text-main);
     text-decoration: none;
     margin: 0 10px;
+    white-space: nowrap;
 }
 
 .logo-text {
     font-family: var(--font-header);
     font-size: clamp(1.6rem, 5vw, 3rem);
     letter-spacing: -2px;
+    text-align: center;
 }
 
 /* Hero Section Container */
@@ -65,7 +82,7 @@ body {
 
 /* Massive Editorial Title Styling */
 .mega-title {
-    width: 100vw;
+    width: 100%;
     overflow: hidden;
     white-space: nowrap;
     will-change: opacity, transform;
@@ -82,7 +99,7 @@ body {
 /* Individual Text Spans */
 .marquee-track span {
     font-family: var(--font-header);
-    font-size: 13vw; /* Large magazine height */
+    font-size: clamp(3.8rem, 12vw, 13vw);
     line-height: 0.8;
     text-transform: uppercase;
     letter-spacing: -3px;
@@ -100,7 +117,7 @@ body {
 
 .text-stretch {
     display: inline-block;
-    font-size: 7.2vw; /* Fits all 19 characters across the viewport width */
+    font-size: clamp(3rem, 8vw, 7.2vw);
     letter-spacing: -3px; /* Tightens gap between letters */
     transform: scaleY(1.8); /* Stretches letter height back to 15vw scale */
     transform-origin: center bottom;
@@ -131,7 +148,7 @@ body {
     position: relative;
     z-index: 10; /* Keeps photo cleanly above background marquee text */
     margin-top: -30px; /* Slight artistic touch over marquee */
-    padding: 0 20px;
+    padding: 0 clamp(12px, 3vw, 20px);
     opacity: 1 !important;
 }
 
@@ -210,6 +227,21 @@ body {
 
 /* Mobile responsiveness */
 @media (max-width: 1024px) {
+    .top-nav {
+        justify-content: center;
+        gap: 8px 16px;
+    }
+
+    .nav-links {
+        width: 100%;
+        order: 2;
+    }
+
+    .logo-text {
+        width: 100%;
+        order: 1;
+    }
+
     .text-block,
     .img-block,
     .intro-block,
@@ -256,6 +288,7 @@ body {
         flex-wrap: wrap;
         justify-content: center;
         gap: 8px 12px;
+        width: 100%;
     }
 
     .top-nav a {
@@ -327,6 +360,11 @@ body {
     }
 
     .social-links {
+        justify-content: center;
+    }
+
+    .social-btn {
+        flex: 1 1 180px;
         justify-content: center;
     }
 
@@ -413,7 +451,7 @@ body {
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 560px) {
     .top-nav a {
         font-size: 0.65rem;
     }
@@ -442,6 +480,11 @@ body {
     .social-btn {
         width: 100%;
         justify-content: center;
+    }
+
+    .project-image-frame,
+    .no-img-box {
+        height: 200px;
     }
 }
 
