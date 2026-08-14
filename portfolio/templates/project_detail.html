@@ -28,8 +28,8 @@
 
         <!-- Large Photo Showcase -->
         <div class="project-showcase">
-            {% if project.cover_image %}
-                <img src="{{ project.cover_image.url }}" alt="{{ project.title }}" class="project-main-img">
+            {% if project.cover_image_display %}
+                <img src="{{ project.cover_image_display }}" alt="{{ project.title }}" class="project-main-img">
             {% endif %}
         </div>
 

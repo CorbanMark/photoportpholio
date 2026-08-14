@@ -48,9 +48,9 @@
 
                 <!-- Project Image Block -->
                 <div class="grid-item img-block">
-                    {% if project.cover_image %}
+                    {% if project.cover_image_display %}
                         <a href="{% url 'project_detail' project.id %}">
-                            <img src="{{ project.cover_image.url }}" alt="{{ project.title }}">
+                            <img src="{{ project.cover_image_display }}" alt="{{ project.title }}">
                         </a>
                     {% else %}
                         <div class="no-img-box">NO IMAGE AVAILABLE</div>

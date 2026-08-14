@@ -13,9 +13,19 @@ class Project(models.Model):
     subtitle = models.CharField(max_length=300, blank=True, null=True)
     description = models.TextField()
     category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, default='latest')
-    cover_image = models.ImageField(upload_to='projects/', storage=MediaCloudinaryStorage())
+    cover_image = models.ImageField(upload_to='projects/', storage=MediaCloudinaryStorage(), blank=True)
+    cover_image_url = models.URLField(
+        blank=True,
+        help_text='Optional. Upload on cloudinary.com, then paste the image URL here.',
+    )
     is_featured = models.BooleanField(default=False, help_text="Check this to feature this photo on the homepage hero section")
     date_created = models.DateField(auto_now_add=True)
+
+    @property
+    def cover_image_display(self):
+        if self.cover_image:
+            return self.cover_image.url
+        return self.cover_image_url
 
     def __str__(self):
         return self.title
@@ -30,13 +40,24 @@ class ServiceRate(models.Model):
     def __str__(self):
         return self.service_name
 
+
 class PhotographerProfile(models.Model):
     name = models.CharField(max_length=100, default="YOUR NAME")
     label = models.CharField(max_length=100, default="// EDITOR & PHOTOGRAPHER")
     bio = models.TextField()
     profile_image = models.ImageField(upload_to='profile/', storage=MediaCloudinaryStorage(), blank=True, null=True)
+    profile_image_url = models.URLField(
+        blank=True,
+        help_text='Optional. Upload on cloudinary.com, then paste the image URL here.',
+    )
     instagram_url = models.URLField(blank=True, null=True)
     twitter_x_url = models.URLField(blank=True, null=True)
+
+    @property
+    def profile_image_display(self):
+        if self.profile_image:
+            return self.profile_image.url
+        return self.profile_image_url
 
     class Meta:
         verbose_name = "Photographer Profile"
