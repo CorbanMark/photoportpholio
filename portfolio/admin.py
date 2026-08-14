@@ -4,9 +4,10 @@ from .models import Project, ServiceRate, PhotographerProfile
 
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
+    readonly_fields = ('date_created',)
     fieldsets = (
         (None, {
-            'fields': ('title', 'subtitle', 'description', 'category', 'is_featured', 'date_created'),
+            'fields': ('title', 'subtitle', 'description', 'category', 'is_featured'),
         }),
         ('Cover Image', {
             'fields': ('cover_image', 'cover_image_url'),
@@ -16,6 +17,12 @@ class ProjectAdmin(admin.ModelAdmin):
             ),
         }),
     )
+
+    def get_fieldsets(self, request, obj=None):
+        fieldsets = list(super().get_fieldsets(request, obj))
+        if obj:
+            fieldsets[0][1]['fields'] = fieldsets[0][1]['fields'] + ('date_created',)
+        return fieldsets
 
 
 @admin.register(PhotographerProfile)
