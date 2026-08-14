@@ -22,12 +22,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-l=g$3)dbnvyl3t+ry^^rjb13pcjq=_m=k65u*vrkkl#l$#wne8'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-l=g$3)dbnvyl3t+ry^^rjb13pcjq=_m=k65u*vrkkl#l$#wne8')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '.vercel.app,127.0.0.1,localhost').split(',')
 
 
 # Application definition
@@ -78,11 +78,17 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-DATABASES = {
-    'default': dj_database_url.parse(
-        'postgresql://neondb_owner:npg_g5I4JfmueDZk@ep-fragrant-mode-b1n5fkw0.c-5.eu-central-1.aws.neon.tech/neondb?sslmode=require'
-    )
-}
+DATABASE_URL = os.environ.get('DATABASE_URL')
+if DATABASE_URL:
+    DATABASES = {
+        'default': dj_database_url.parse(DATABASE_URL)
+    }
+else:
+    DATABASES = {
+        'default': dj_database_url.parse(
+            'postgresql://neondb_owner:npg_g5I4JfmueDZk@ep-fragrant-mode-b1n5fkw0.c-5.eu-central-1.aws.neon.tech/neondb?sslmode=require'
+        )
+    }
 
 
 # Password validation
@@ -128,9 +134,9 @@ STATICFILES_DIRS = [
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': os.environ.get('htds1kbf'),
-    'API_KEY': os.environ.get('167153789543883'),
-    'API_SECRET': os.environ.get('1L9vHah4dTzItM6cZ16_a150l5k'),
+    'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
+    'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
 }
 
 STORAGES = {
@@ -143,7 +149,4 @@ STORAGES = {
 }
 
 MEDIA_URL = '/media/'
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-
-ALLOWED_HOSTS = ['.vercel.app', '127.0.0.1', 'localhost']
 
