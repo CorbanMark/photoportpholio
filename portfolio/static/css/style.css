@@ -128,10 +128,8 @@ body {
 
 .hero-img {
     width: 100%;
-    max-width: 900px;
-    height: 420px;
-    max-height: 50vh;
-    object-fit: cover;
+    max-width: 1200px;
+    height: auto;
     border: 2px solid var(--text-main);
     background-color: var(--bg-color);
     display: block;
@@ -206,10 +204,6 @@ body {
     .intro-card {
         flex-direction: column;
         text-align: center;
-    }
-
-    .hero-img {
-        height: 260px;
     }
 
     .project-image-frame,
